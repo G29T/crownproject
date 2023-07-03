@@ -8,4 +8,4 @@ const CategoryBodyContainer = ({title}) => {
     )
 }
 
-export default CategoryBodyContainer;
+export default CategoryBodyContainer; 
