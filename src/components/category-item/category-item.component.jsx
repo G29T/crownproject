@@ -1,4 +1,4 @@
-import CategoryBodyContainer from "../category-body-container/category-body-container.component";
+import CategoryItemBody from "../category-item-body/category-item-body.component";
 
 // this is a functional component
 const CategoryItem = ({category}) => {
@@ -8,7 +8,7 @@ const CategoryItem = ({category}) => {
             <div className="background-image" style={{
             backgroundImage: `url(${imageUrl})`
             }}/>
-            <CategoryBodyContainer title={title}/>
+            <CategoryItemBody title={title}/>
       </div>
     )
 }
