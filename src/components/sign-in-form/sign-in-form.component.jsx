@@ -3,7 +3,7 @@ import { createUserDocumentFromAuth, signInWithGooglePopup, signInAuthUserWithEm
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 import './sign-in-form.styles.scss'
-import { UserContext } from '../../contexts/user.context'
+import { UserContext, useCurrentUser } from '../../contexts/user.context'
 
 const deafultFormFields = {
     email: '',
@@ -15,7 +15,8 @@ const SignInForm = () => {
     const [formFields, setFormFields] = useState(deafultFormFields);
     const { email, password } = formFields;
 
-    const { setCurrentUser  } = useContext(UserContext);
+    // const { setCurrentUser  } = useContext(UserContext); //destructuring
+    const { setCurrentUser } = useCurrentUser()
 
     const handleChange = (event) => {
         const {name, value} = event.target;
@@ -24,6 +25,7 @@ const SignInForm = () => {
 
     const signInWithGoogle = async () => {
         const {user} = await signInWithGooglePopup();
+        setCurrentUser(user);
         await createUserDocumentFromAuth(user);
     };
 

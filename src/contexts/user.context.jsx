@@ -1,4 +1,5 @@
-import { createContext } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
+import { onAuthStateChangedListener } from '../utils/firebase/firebase.utils';
 
 //as the actual value you want to access
 export const UserContext = createContext({
@@ -22,5 +23,16 @@ export const UserProvider = ({children}) => {
 // This way, you can make the currentUser state and the setCurrentUser function available to any child components that consume this context.
     const value = { currentUser, setCurrentUser };
 
-    return <UserContexxt.Provider value={value}>{children}</UserContexxt.Provider>
+    //Only running the below function once, when the component mounts. 
+    useEffect(() => {
+        const unsubscribe = onAuthStateChangedListener(() => {
+            setCurrentUser(user);
+        });
+
+        return unsubscribe;
+    }, []); //it has an empty dependency array
+
+    return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }
+
+ export const useCurrentUser = () => useContext(UserContext)
