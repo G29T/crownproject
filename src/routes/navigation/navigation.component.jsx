@@ -8,6 +8,11 @@ import { signOutUser } from '../../utils/firebase/firebase.utils';
 const Navigation = () => {
   //whenever a value inside Context update then re-render
   const { currentUser } = useContext(UserContext);
+
+  const signOutHandler = async() => {
+    await signOutUser();
+  }
+
   return (
     <Fragment>
       <div className='navigation'>
@@ -20,7 +25,7 @@ const Navigation = () => {
             <Link className='nav-link' to='/shop'>Shop</Link>
             {
               currentUser ? (
-                <span className='nav-link' onClick={signOutUser}>Sign Out</span>
+                <span className='nav-link' onClick={signOutHandler}>Sign Out</span>
                 ):(
                 <Link className='nav-link' to='/auth'>Sign In</Link>
                 )
