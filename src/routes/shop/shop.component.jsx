@@ -1,9 +1,10 @@
-import SHOP_DATA from '../../shop-data.json';
+import { useCurrentProducts } from '../../contexts/products.context';
 
 const Shop = () => {
+    const { products } = useCurrentProducts();
     return (
         <div>
-            {SHOP_DATA.map(({id, name}) => (
+            {products.map(({id, name}) => (
                 <div key={id}>
                     <h1>{name}</h1>
                 </div>
