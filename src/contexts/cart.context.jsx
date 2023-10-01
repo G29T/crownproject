@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext, useEffect } from 'react';
 
 const addCartItem = (cartItems, productToAdd) => {
     //find if cartItems contains productToAdd
@@ -19,18 +19,28 @@ export const CartContext = createContext({
    isCartOpen: false,
    setIsCartOpen: () => {},
    cartItems: [],
-   addItemToCart: () => {}
+   addItemToCart: () => {},
+   cartCount: 0
 });
 
 export const CartProvider = ({children}) => {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [cartItems, setCartItems] = useState([]);
+    const [cartCount, setCartCount] = useState(0);
+
+    // useEffect we pass it a callback
+    //& the callback runs everytime smth in your array dependency cartItmes changes
+    //so, everytime the cartItems array changes in any way we need to recalculate the cart count
+    useEffect(() => {
+        const newCartCount = cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
+        setCartCount(newCartCount);
+    }, [cartItems])
 
     const addItemToCart = (productToAdd) => {
         setCartItems(addCartItem(cartItems, productToAdd));
     }
 
-    const value = { isCartOpen, setIsCartOpen, addItemToCart, cartItems };
+    const value = { isCartOpen, setIsCartOpen, addItemToCart, cartItems, cartCount };
 
     return (
         <CartContext.Provider value={value} >{children}</CartContext.Provider>
