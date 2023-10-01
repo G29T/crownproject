@@ -3,7 +3,7 @@ import { useCurrentCartDropdownState } from '../../contexts/cart.context';
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
 
 const Checkout = () => {
-    const { cartItems } = useCurrentCartDropdownState();
+    const { cartItems, cartTotal } = useCurrentCartDropdownState();
 
     return(
         <div className='checkout-container'>
@@ -31,7 +31,7 @@ const Checkout = () => {
                     )
                 })
             }
-            <span className='Total'>Total</span>
+            <span className='Total'>{cartTotal}</span>
         </div>
     )
 }

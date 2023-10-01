@@ -37,13 +37,15 @@ export const CartContext = createContext({
    addItemToCart: () => {},
    cartCount: 0,
    removeItemFromCart: () => {},
-   clearItemFromCart: () => {}
+   clearItemFromCart: () => {},
+   cartTotal: 0
 });
 
 export const CartProvider = ({children}) => {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const [cartCount, setCartCount] = useState(0);
+    const [cartTotal, setCartTotal] = useState(0);
 
     // useEffect we pass it a callback
     //& the callback runs everytime smth in your array dependency cartItmes changes
@@ -51,6 +53,11 @@ export const CartProvider = ({children}) => {
     useEffect(() => {
         const newCartCount = cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
         setCartCount(newCartCount);
+    }, [cartItems])
+
+    useEffect(() => {
+        const newTotal = cartItems.reduce((total, cartItem) => total + cartItem.quantity * cartItem.price, 0);
+        setCartTotal(newTotal);
     }, [cartItems])
 
     const addItemToCart = (productToAdd) => {
@@ -65,7 +72,7 @@ export const CartProvider = ({children}) => {
         setCartItems(clearCartItem(cartItems, productToClear));
     }
 
-    const value = { isCartOpen, setIsCartOpen, addItemToCart, cartItems, cartCount, removeItemFromCart, clearItemFromCart };
+    const value = { isCartOpen, setIsCartOpen, addItemToCart, cartItems, cartCount, removeItemFromCart, clearItemFromCart, cartTotal };
 
     return (
         <CartContext.Provider value={value} >{children}</CartContext.Provider>
