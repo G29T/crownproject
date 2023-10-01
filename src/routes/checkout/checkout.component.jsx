@@ -3,7 +3,7 @@ import { useCurrentCartDropdownState } from '../../contexts/cart.context';
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
 
 const Checkout = () => {
-    const { cartItems, addItemToCart, removeItemFromCart } = useCurrentCartDropdownState();
+    const { cartItems } = useCurrentCartDropdownState();
 
     return(
         <div className='checkout-container'>
@@ -29,18 +29,6 @@ const Checkout = () => {
                     return(
                         <CheckoutItem key={cartItem.id} cartItem={cartItem} />
                     )
-                    // const { id, name, imageUrl, price, quantity } = cartItem;
-                    // return ( 
-                    //     <div key={id}>
-                    //         <img src={imageUrl} alt={`${name}`}/>
-                    //         <span className='name'>{ name }</span>
-                    //         <span className='price'>{quantity} x ${price}</span>
-                    //         <br />
-                    //         <span onClick={() => removeItemFromCart(cartItem)}>decrement</span>
-                    //         <br />
-                    //         <span onClick={() => addItemToCart(cartItem)}>increment</span>
-                    //     </div>
-                    // )
                 })
             }
             <span className='Total'>Total</span>

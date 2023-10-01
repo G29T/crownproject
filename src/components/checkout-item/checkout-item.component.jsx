@@ -1,6 +1,8 @@
 import './checkout-item.styles.scss';
+import { useCurrentCartDropdownState } from '../../contexts/cart.context'
 
 const CheckoutItem = ({ cartItem }) => {
+    const { clearItemFromCart, addItemToCart, removeItemFromCart } = useCurrentCartDropdownState();
     const { name, imageUrl, price, quantity } = cartItem;
 
     return(
@@ -9,9 +11,13 @@ const CheckoutItem = ({ cartItem }) => {
                 <img src={imageUrl} alt={`${name}`}/>
             </div>
             <span className='name'>{ name }</span>
-            <span className='quantity'>{quantity}</span>
+            <span className='quantity'>
+                <div className='arrow' onClick={() => removeItemFromCart(cartItem)}>&#10094;</div>
+                <span className='value'>{quantity}</span>
+                <div className='arrow' onClick={() => addItemToCart(cartItem)}>&#10095;</div>
+            </span>
             <span className='price'>{price}</span>
-            <div className='remove-button'>&#10005;</div>
+            <div className='remove-button' onClick={() => clearItemFromCart(cartItem)}>&#10005;</div>
         </div>
     )
 }
