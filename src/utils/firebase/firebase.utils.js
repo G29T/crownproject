@@ -105,6 +105,7 @@ export const addCollectionAndDocuments = async (
   console.log('done');
 };
 
+//Lecture 130
 export const getCategoriesAndDocuments = async () => {
   const collectionRef = collection(db, 'categories');
   const q = query(collectionRef);
