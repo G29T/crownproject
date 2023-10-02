@@ -18,7 +18,7 @@ import {
   getDoc,
   getDocs,
   setDoc,
-  collection,
+  collection, //allows us to get a collection reference
   writeBatch,
   query
 } from 'firebase/firestore';
@@ -88,10 +88,10 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
 };
 
 
-
+//adding a new collection as well as the documents inside of that collection
 export const addCollectionAndDocuments = async (
   collectionKey,
-  objectsToAdd
+  objectsToAdd //the documents we want to add
 ) => {
   const batch = writeBatch(db);
   const collectionRef = collection(db, collectionKey);
