@@ -3,12 +3,12 @@ import { getCategoriesAndDocuments } from '../utils/firebase/firebase.utils.js';
 import SHOP_DATA from '../shop-data.js';
 
 //we want to store an array of products
-export const ProductsContext = createContext({
-   products: [],
+export const CategoriesContext = createContext({
+   categoriesMap: {},
 });
 
-export const ProductsProvider = ({children}) => {
-    const [products, setProducts] = useState([]);
+export const CategoriesProvider = ({children}) => {
+    const [categoriesMap, setCategoriesMap] = useState({});
 
     //I am running the below only when the Provider gets mounted (the [])
     useEffect(() => {
@@ -16,16 +16,18 @@ export const ProductsProvider = ({children}) => {
        //ANY async things you need to do inside useEffect wrap it inside an async function
         const getCategoriesMap = async () => {
             const categoryMap = await getCategoriesAndDocuments();
+            console.log(categoryMap);
+            setCategoriesMap(categoryMap);
         }
 
         getCategoriesMap(); //invoke it
     }, []); 
 
-    const value = {products};
+    const value = { categoriesMap };
 
     return (
-        <ProductsContext.Provider value={value} >{children}</ProductsContext.Provider>
+        <CategoriesContext.Provider value={value} >{children}</CategoriesContext.Provider>
     )
 }
 
-export const useCurrentProducts = () => useContext(ProductsContext);
+export const useCurrentCategories = () => useContext(CategoriesContext);
