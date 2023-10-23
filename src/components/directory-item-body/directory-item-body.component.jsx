@@ -1,11 +1,13 @@
-const DirectoryItemBody = ({title}) => {
+// import { Body } from './directory-item-body.styles';
 
-    return (
-        <div className='body'>
-            <h2>{title}</h2>
-            <p>Shop Now</p>
-        </div>
-    )
-}
+// const DirectoryItemBody = ({title}) => {
 
-export default DirectoryItemBody; 
+//     return (
+//         <Body>
+//             <h2>{title}</h2>
+//             <p>Shop Now</p>
+//         </Body>
+//     )
+// }
+
+// export default DirectoryItemBody; 
