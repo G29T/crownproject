@@ -1,6 +1,6 @@
 //This is a version using Reducers instead of useState
 
-import { createContext, useEffect, useContext } from 'react';
+import { createContext, useEffect, useContext, useReducer } from 'react';
 import { createUserDocumentFromAuth, onAuthStateChangedListener } from '../utils/firebase/firebase.utils';
 
 export const UserContext = createContext({
