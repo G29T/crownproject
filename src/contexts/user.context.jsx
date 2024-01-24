@@ -1,29 +1,49 @@
-import { createContext, useState, useEffect, useContext } from 'react';
+//This is a version using Reducers instead of useState
+
+import { createContext, useEffect, useContext } from 'react';
 import { createUserDocumentFromAuth, onAuthStateChangedListener } from '../utils/firebase/firebase.utils';
 
-//as the actual value you want to access
 export const UserContext = createContext({
     currentUser: null,
     setCurrentUser: () => null,
 });
 
-export const UserProvider = ({children}) => {
+export const USER_ACTION_TYPE = {
+    SET_CURRENT_USER: 'SET_CURRENT_USER'
+}
 
-// Here, you're using React's useState hook. This line of code does the following:
-// currentUser: This is a variable that holds the current state value. 
-// In this case, it's initialized with null.
-// setCurrentUser: This is a function that allows you to update the currentUser state. 
-// When you call setCurrentUser(newValue), it will update currentUser to newValue. 
-    const [currentUser, setCurrentUser] = useState(null);
+const userReducer = (state, action) => {
+    const { type, payload } = action;
     
-// Here, you're creating an object called value. This object contains two properties:
-// currentUser: This property holds the current state value (null initially).
-// setCurrentUser: This property holds the function that allows you to update the currentUser state.
-// The purpose of creating this object is likely to pass it as the value prop to a React context provider.
-// This way, you can make the currentUser state and the setCurrentUser function available to any child components that consume this context.
+    switch(type) {
+        case USER_ACTION_TYPE.SET_CURRENT_USER:
+            return {
+                //ALWAYS return an object that
+                ...state, //spreads through the previous state
+                currentUser: payload // and then update the relevant values that you care about
+            }
+        default:
+            throw new Error(`Unhandled type ${type} in userReducer`);
+    }
+}
+
+const INITIAL_STATE = {
+    currentUser: null
+}
+
+export const UserProvider = ({children}) => {
+   // REPLACED const [currentUser, setCurrentUser] = useState(null);
+
+    //Destructure the state object:  const { currentUser } = state;
+    //useReducer hook takes 2 args: a reducer and the initial value for the state
+    const [ { currentUser }, dispatch] = useReducer(userReducer, INITIAL_STATE)
+
+    const setCurrentUser = (user) => {
+        dispatch({ type: USER_ACTION_TYPE.SET_CURRENT_USER, payload: user });
+    };
+
     const value = { currentUser, setCurrentUser };
 
-    //Only running the below function once, when the component mounts. 
     useEffect(() => {
         const unsubscribe = onAuthStateChangedListener((user) => {
             if(user){
@@ -33,7 +53,7 @@ export const UserProvider = ({children}) => {
         });
 
         return unsubscribe;
-    }, []); //it has an empty dependency array
+    }, []);
 
     return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }
