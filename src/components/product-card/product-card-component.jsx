@@ -1,6 +1,6 @@
 import './product-card.styles.scss';
 import Button from '../button/button.component';
-import { useCurrentCartDropdownState } from '../../contexts/cart.context';
+import { useCurrentCartDropdownState } from '../../contexts/cart.context.useState';
 
 const ProductCard = ({ product }) => {
     const { name, imageUrl, price } = product;

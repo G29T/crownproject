@@ -1,5 +1,5 @@
 import './checkout.styles.scss';
-import { useCurrentCartDropdownState } from '../../contexts/cart.context';
+import { useCurrentCartDropdownState } from '../../contexts/cart.context.useState';
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
 
 const Checkout = () => {

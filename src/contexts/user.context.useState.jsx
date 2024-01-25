@@ -1,4 +1,6 @@
 //This is a version using useState instead of Reducers
+// This version is not used anymore as I have replaced it with Reducers
+// I left it here only for reference
 
 import { createContext, useState, useEffect, useContext } from 'react';
 import { createUserDocumentFromAuth, onAuthStateChangedListener } from '../utils/firebase/firebase.utils';

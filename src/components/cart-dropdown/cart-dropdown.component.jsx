@@ -1,7 +1,7 @@
 import './cart-dropdown.styles.scss';
 import Button from '../button/button.component';
 import CartItem from '../cart-item/cart-item.component'
-import { useCurrentCartDropdownState } from '../../contexts/cart.context';
+import { useCurrentCartDropdownState } from '../../contexts/cart.context.useState';
 import { useNavigate } from 'react-router-dom';
 
 const CartDropdown = () => {

@@ -1,5 +1,5 @@
 import './checkout-item.styles.scss';
-import { useCurrentCartDropdownState } from '../../contexts/cart.context'
+import { useCurrentCartDropdownState } from '../../contexts/cart.context.useState'
 
 const CheckoutItem = ({ cartItem }) => {
     const { clearItemFromCart, addItemToCart, removeItemFromCart } = useCurrentCartDropdownState();
