@@ -15,7 +15,7 @@ const SignInForm = () => {
     const { email, password } = formFields;
 
     // const { setCurrentUser  } = useContext(UserContext); //destructuring
-    //const { setCurrentUser } = useCurrentUser()
+    // const { setCurrentUser } = useCurrentUser()
 
     const handleChange = (event) => {
         const {name, value} = event.target;
@@ -35,7 +35,12 @@ const SignInForm = () => {
 
         try {
             //we must store the user object inside the context
-            const {user} = await signInAuthUserWithEmailAndPassword(email, password);
+            const result = await signInAuthUserWithEmailAndPassword(email, password);
+            console.log('result', result)
+            if(!result) { 
+                console.log('no user') 
+                return
+            }
             resetFormFields();
         } catch(error) {
 

@@ -121,6 +121,7 @@ export const getCategoriesAndDocuments = async () => {
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  console.log('email', email, 'password', password)
   if (!email || !password) return;
 
   return await createUserWithEmailAndPassword(auth, email, password);
