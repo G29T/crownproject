@@ -17,7 +17,7 @@ const SignUpForm = () => {
 
     const handleChange = (event) => {
         const {name, value} = event.target;
-        setFormFields({...formFields, [name]: value});   // setFormFields({ displayName: '', password: '', confirmedPassord: '', email: 'gabriela@gmail.com' })
+        setFormFields({...formFields, [name]: value}); 
     }
 
     const resetFormFields = () => {
@@ -26,8 +26,6 @@ const SignUpForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        console.log('form', formFields)
 
         if(password !== confirmedPassword){
             alert('Passwords do not match');
@@ -38,7 +36,6 @@ const SignUpForm = () => {
             const result = await createAuthUserWithEmailAndPassword(email, password);
                         
             if(!result) { 
-                console.log('no user') 
                 return
             }
             await createUserDocumentFromAuth(result.user, { displayName });
@@ -56,10 +53,6 @@ const SignUpForm = () => {
             <h2>Don't have an account?</h2>
             <span>Sign up with your email and password</span>
             <form onSubmit={handleSubmit}>
-
-            {/* <label>Display Name</label>
-            <input type='text' required onChange={handleChange} name='displayName' value={displayName} /> */}
-
                 <FormInput label='Display Name' inputProps={{type: 'text', required: true, onChange: handleChange, name: 'displayName', value: displayName}}/>
                 <FormInput label='Email' inputProps={{type: 'email', required: true, onChange: handleChange, name: 'email', value: email}}/>
                 <FormInput label='Password' inputProps={{type: 'password', required: true, onChange: handleChange, name: 'password', value: password}}/>
