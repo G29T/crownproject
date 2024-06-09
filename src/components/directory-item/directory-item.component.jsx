@@ -5,9 +5,8 @@ import {
     Body
   } from './directory-item.styles';
 
-import { useNavigate } from 'react-router-dom'; //Hook
+import { useNavigate } from 'react-router-dom'; 
 
-// this is a functional component
 const DirectoryItem = ({category}) => {
     const {imageUrl, title, route} = category
     const navigate = useNavigate();

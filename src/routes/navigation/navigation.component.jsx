@@ -14,7 +14,6 @@ import {
 } from './navigation.styles';
 
 const Navigation = () => {
-  //whenever a value inside Context update then re-render
   const { currentUser } = useContext(UserContext);
   const { isCartOpen } = useCurrentCartDropdownState();
 

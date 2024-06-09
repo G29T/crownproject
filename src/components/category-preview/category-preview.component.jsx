@@ -10,10 +10,6 @@ const CategoryPreview = ({ title, products }) => {
             </h2>
             <div className='preview'>
                 {
-                    // we want to filter out anything but the first 4
-                    // the call back (_, index) is getting a product which I'll ignore (the _)
-                    //as I don't want to use it, and the second argument is the index
-                    //we keep whatever has an index lower than 4
                     products.filter((_, index) => index < 4)
                     .map((product) => (
                         <ProductCard key={product.id} product={product} />
